@@ -28,11 +28,12 @@ func stopLoading() {
     
 }
 
-public func createBlueGradientLayer(ForFrame frame : CGRect) -> CAGradientLayer {
+public func createBlackGradientLayer(forFrame frame : CGRect) -> CAGradientLayer {
     let gradientLayer = CAGradientLayer()
-    gradientLayer.colors = [UIColor.darkBlue.cgColor, UIColor.mediorBlue.cgColor, UIColor.lightBlue.cgColor]
-    gradientLayer.frame = frame
-    gradientLayer.locations = [0, 0.5, 1]
+    gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+    let newFrame = CGRect(x: frame.minX - 20, y: frame.minY - 20, width: frame.width + 20.0, height: frame.height)
+    gradientLayer.frame = newFrame
+    gradientLayer.locations = [0, 1]
     
     return gradientLayer
 }

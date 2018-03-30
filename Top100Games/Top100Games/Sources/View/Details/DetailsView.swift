@@ -23,7 +23,7 @@ class DetailsView: UIView {
         gameName.text = model.gameName
         gameChannelsCount.text = "Contador de canais: " + String(describing: model.channels)
         gameViewersCount.text = "Quantidade de visualizações: " + String(describing: model.viewers)
-        loadGamePoster(model.thumbnailString)
+        loadGamePoster(model.imageString)
     }
     
     // MARK: - Private Methods
@@ -34,8 +34,11 @@ class DetailsView: UIView {
     
     private func loadGamePoster(_ string : String) {
         guard let url = URL(string: string) else { return }
-        
-        gameImage.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromBottom(0.5), runImageTransitionIfCached: false)
+
+        gameImage.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromBottom(1.0), runImageTransitionIfCached: false) { (response) in
+            let gradient = createBlackGradientLayer(forFrame: self.gameImage.frame)
+            self.gameImage.layer.insertSublayer(gradient, at: 0)
+        }
     }
 
 }

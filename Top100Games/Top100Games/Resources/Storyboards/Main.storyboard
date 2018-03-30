@@ -131,6 +131,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tm6-w3-Qvm">
                                 <rect key="frame" x="321" y="461" width="22" height="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="favorite_empty_icon"/>
                                 <connections>
                                     <action selector="saveGame:" destination="SAO-s6-Ngf" eventType="touchUpInside" id="OL3-C0-hEr"/>
