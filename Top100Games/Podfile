@@ -1,0 +1,13 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target 'Top100Games' do
+
+pod 'Alamofire'
+pod 'AlamofireImage'
+pod 'lottie-ios'
+pod 'Freddy'
+pod 'ReachabilitySwift'
+
+end
+

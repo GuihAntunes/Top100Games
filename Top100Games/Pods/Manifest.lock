@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (4.7.0)
+  - AlamofireImage (3.3.0):
+    - Alamofire (~> 4.5)
+  - Freddy (3.0.3)
+  - lottie-ios (2.5.0)
+  - ReachabilitySwift (4.1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireImage
+  - Freddy
+  - lottie-ios
+  - ReachabilitySwift
+
+SPEC CHECKSUMS:
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
+  Freddy: 7c62db262a0d0e3b3e2b8b40f2c0cc51e122fbc4
+  lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+
+PODFILE CHECKSUM: c5df715655750951dcd477c9a4bbc64b568f3d5f
+
+COCOAPODS: 1.4.0
