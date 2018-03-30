@@ -33,5 +33,7 @@ class DetailsViewController: UIViewController, ViewCustomizable, Identifiable {
     }
     
     // MARK: - Actions
-
+    @IBAction func saveGame(_ sender: UIButton) {
+    }
+    
 }

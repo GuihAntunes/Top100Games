@@ -129,6 +129,13 @@
                                     <constraint firstAttribute="width" secondItem="FiJ-lp-I5l" secondAttribute="height" multiplier="1:1" id="BkU-SR-wJe"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tm6-w3-Qvm">
+                                <rect key="frame" x="321" y="461" width="22" height="22"/>
+                                <state key="normal" image="favorite_empty_icon"/>
+                                <connections>
+                                    <action selector="saveGame:" destination="SAO-s6-Ngf" eventType="touchUpInside" id="OL3-C0-hEr"/>
+                                </connections>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="M7b-rL-EOc">
                                 <rect key="frame" x="12" y="515" width="351" height="251"/>
                                 <subviews>
@@ -156,8 +163,10 @@
                         <color key="backgroundColor" red="0.1960784314" green="0.12549019610000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WY7-9D-bWT" firstAttribute="bottom" secondItem="M7b-rL-EOc" secondAttribute="bottom" constant="12" id="8m6-Q1-OES"/>
+                            <constraint firstItem="WY7-9D-bWT" firstAttribute="trailing" secondItem="Tm6-w3-Qvm" secondAttribute="trailing" constant="32" id="Iza-IH-Dpu"/>
                             <constraint firstItem="FiJ-lp-I5l" firstAttribute="leading" secondItem="WY7-9D-bWT" secondAttribute="leading" constant="12" id="THW-qS-4pg"/>
                             <constraint firstItem="FiJ-lp-I5l" firstAttribute="top" secondItem="WY7-9D-bWT" secondAttribute="top" constant="12" id="XKY-UL-RO8"/>
+                            <constraint firstItem="M7b-rL-EOc" firstAttribute="top" secondItem="Tm6-w3-Qvm" secondAttribute="bottom" constant="32" id="XnI-VT-Ial"/>
                             <constraint firstItem="WY7-9D-bWT" firstAttribute="trailing" secondItem="FiJ-lp-I5l" secondAttribute="trailing" constant="12" id="Zoj-nc-7cE"/>
                             <constraint firstItem="M7b-rL-EOc" firstAttribute="leading" secondItem="WY7-9D-bWT" secondAttribute="leading" constant="12" id="g4F-Ey-dXV"/>
                             <constraint firstItem="M7b-rL-EOc" firstAttribute="top" secondItem="FiJ-lp-I5l" secondAttribute="bottom" constant="12" id="ozQ-l8-mr1"/>
@@ -177,4 +186,7 @@
             <point key="canvasLocation" x="2475" y="110"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="favorite_empty_icon" width="22" height="21"/>
+    </resources>
 </document>
