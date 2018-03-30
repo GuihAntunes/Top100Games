@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Reachability
 
 class HomeCollectionViewController: UICollectionViewController, Identifiable {
     
@@ -55,6 +56,17 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     }
     
     // MARK: - General Methods
+    private func presentInternetErrorAlert() {
+        let alert = UIAlertController(title: "Sem conexão!", message: "Ops! Você parece estar sem internet!", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let retryAction = UIAlertAction(title: "Tentar Novamente", style: .default) { (action) in
+            self.loadGames()
+        }
+        alert.addAction(okAction)
+        alert.addAction(retryAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func setupHome() {
         collectionView?.refreshControl = refreshControl
         collectionView?.dataSource = self
@@ -70,7 +82,15 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     }
 
     fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false) {
-        startLoading(view: view)
+        guard Reachability.isConnected else {
+            self.refreshControl.endRefreshing()
+            presentInternetErrorAlert()
+            return
+        }
+        
+        if !refresh {
+            startLoading(view: view)
+        }
         manager.fetchTopGames(refresh: refresh, nextPage: nextPage) { [weak self] (callback) in
             guard let _self = self else { return }
             
