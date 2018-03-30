@@ -35,7 +35,10 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
         
         guard let url = URL(string: string) else { return }
         
-        gamePoster.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false)
+        startLoading(view: gamePoster)
+        gamePoster.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false) { (response) in
+            stopLoading()
+        }
         
     }
     

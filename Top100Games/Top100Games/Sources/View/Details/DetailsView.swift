@@ -35,9 +35,11 @@ class DetailsView: UIView {
     private func loadGamePoster(_ string : String) {
         guard let url = URL(string: string) else { return }
 
+        startLoading(view: gameImage)
         gameImage.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromBottom(1.0), runImageTransitionIfCached: false) { (response) in
             let gradient = createBlackGradientLayer(forFrame: self.gameImage.frame)
             self.gameImage.layer.insertSublayer(gradient, at: 0)
+            stopLoading()
         }
     }
 
