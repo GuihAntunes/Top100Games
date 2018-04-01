@@ -57,14 +57,10 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     
     // MARK: - General Methods
     private func presentInternetErrorAlert() {
-        let alert = UIAlertController(title: "Sem conexão!", message: "Ops! Você parece estar sem internet!", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        let retryAction = UIAlertAction(title: "Tentar Novamente", style: .default) { (action) in
+        let internetErrorAlert = createAlertWith(title: LocalizableStrings.offlineModeTitle.localize(), message: LocalizableStrings.offlineModeMessage.localize(), retryAction: true, { (action) in
             self.loadGames()
-        }
-        alert.addAction(okAction)
-        alert.addAction(retryAction)
-        present(alert, animated: true, completion: nil)
+        })
+        present(internetErrorAlert, animated: true, completion: nil)
     }
     
     private func setupHome() {
@@ -76,21 +72,28 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     }
     
     fileprivate func handlePagination(lastItem : Int) {
-        if lastItem >= (games?.count ?? 0) - 1 {
+        var condition : Bool = false
+        if PaginationFeatureToggle.isInfinitPaginationEnabled {
+            condition = lastItem >= (games?.count ?? 0) - 1
+        } else {
+            condition = lastItem >= (games?.count ?? 0) - 1 && (games?.count ?? 0) < 100
+        }
+        
+        if condition {
             loadGames(nextPage: true)
         }
     }
 
     fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false) {
-        guard Reachability.isConnected else {
+        if !Reachability.isConnected {
             self.refreshControl.endRefreshing()
             presentInternetErrorAlert()
-            return
         }
         
         if !refresh {
             startLoading(view: view)
         }
+        
         manager.fetchTopGames(refresh: refresh, nextPage: nextPage) { [weak self] (callback) in
             guard let _self = self else { return }
             
@@ -144,7 +147,7 @@ extension HomeCollectionViewController {
         
         cell.setupCellWithModel(game)
         
-        if PaginationFeatureToggle.isPaginationEnabled {
+        if PaginationFeatureToggle.isPaginationEnabled && Reachability.isConnected {
             handlePagination(lastItem: indexPath.item)
         }
         

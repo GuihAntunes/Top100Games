@@ -1,0 +1,22 @@
+//
+//  Localizable.strings
+//  Top100Games
+//
+//  Created by Guilherme Antunes on 30/03/18.
+//  Copyright © 2018 Guilherme Antunes. All rights reserved.
+//
+
+"okActionTitle" = "Ok";
+"tryAgainTitle" = "Tentar Novamente";
+"offlineModeTitle" = "Sem conexão!";
+"offlineModeMessage" = "Ops! Você parece estar sem internet!";
+"savedOnCoreDataTitle" = "Checkpoint!";
+"saveOnCoreDataMessage" = "Jogo salvo!";
+"failedToSaveOnCoreDataTitle" = "Falha ao salvar!";
+"failedToSaveOnCoreDataMessage" = "Houve um problema ao tentar salvar o jogo!";
+"saveButtonFilled" = "favorite_full_icon";
+"saveButtonEmpty" = "favorite_empty_icon";
+"deletedFromCoreDataTitle" = "Apagado!";
+"deletedFromCoreDataMessage" = "Jogo apagado!";
+"failedDeleteFromCoreDataTitle" = "Falha ao apagar!";
+"failedDeleteFromCoreDataMessage" = "Houve um problema ao tentar apagar o jogo!";

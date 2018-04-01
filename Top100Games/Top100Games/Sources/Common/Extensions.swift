@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 import Reachability
 
+extension String {
+    func localize(isAccessibilty: Bool = false) -> String {
+        return NSLocalizedString(self,
+                                 tableName: isAccessibilty ? "LocalizableAccessibility" : "Localizable",
+                                 bundle: Bundle.main,
+                                 value: "",
+                                 comment: "")
+    }
+}
+
 extension Reachability {
     // MARK: - Private Computed Properties
     private static let defaultHost = "www.google.com"

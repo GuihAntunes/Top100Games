@@ -16,6 +16,10 @@ struct GamesList : JSONDecodable {
     var totalResults : Int?
     var totalPages : Int = Int.max
     
+    public init(games : [Game]?) {
+        self.games = games
+    }
+    
     public init(json: JSON) throws {
         totalResults = try json.getInt(at: "_total")
         games = try json.getArray(at: "top").map(Game.init)

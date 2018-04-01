@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import Reachability
 
 class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     
@@ -17,9 +18,14 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     
     // MARK: - Public Methods
     public func setupCellWithModel(_ model : Game) {
+        if let poster = model.image {
+            gamePoster.image = poster
+        } else {
+            loadGamePoster(imageString: model.thumbnailString)
+        }
+        
         setupGamePosterView()
         gameNameLabel.text = model.gameName
-        loadGamePoster(imageString: model.thumbnailString)
     }
     
     // MARK: - Private Methods
@@ -32,11 +38,17 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     }
     
     private func loadGamePoster(imageString string : String) {
+        guard Reachability.isConnected else {
+            return
+        }
         
         guard let url = URL(string: string) else { return }
         
         startLoading(view: gamePoster)
-        gamePoster.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false) { (response) in
+        
+        let placeholderImage = #imageLiteral(resourceName: "emptyImage")
+        
+        gamePoster.af_setImage(withURL: url,  placeholderImage: placeholderImage, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false) { (response) in
             stopLoading()
         }
         
@@ -45,7 +57,7 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     // MARK: - Override
     override func prepareForReuse() {
         gameNameLabel.text = ""
-        gamePoster.image = UIImage()
+        gamePoster.image = #imageLiteral(resourceName: "emptyImage")
         gamePoster.af_cancelImageRequest()
     }
     

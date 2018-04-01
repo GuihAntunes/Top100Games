@@ -12,4 +12,5 @@ struct PaginationFeatureToggle {
     
     static var isPaginationEnabled = true
     
+    static var isInfinitPaginationEnabled = true
 }

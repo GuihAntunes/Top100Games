@@ -32,11 +32,16 @@ struct GamesApiProvider {
     }
     
     static var limitQuery: String {
-        return "?limit=100"
+        var limit = 100
+        if PaginationFeatureToggle.isInfinitPaginationEnabled {
+            limit = 50
+        } else if PaginationFeatureToggle.isPaginationEnabled {
+            limit = 20
+        }
+        return "?limit=\(limit)"
     }
     
     static func fetchTopGames(refresh : Bool = false, page : Int = 0, completion : @escaping TopGamesCallback) {
-        
         guard let url = URL(string: baseUrl + limitQuery + pageQuery + String(describing: page)) else {
             print("Failed to get url from string")
             return

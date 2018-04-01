@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import Reachability
 
 class DetailsView: UIView {
     
@@ -16,29 +17,51 @@ class DetailsView: UIView {
     @IBOutlet weak var gameName: UILabel!
     @IBOutlet weak var gameChannelsCount: UILabel!
     @IBOutlet weak var gameViewersCount: UILabel!
+    @IBOutlet weak var saveGameButton: UIButton!
     
     // MARK: - Public Methods
     public func setupViewWith(model : Game) {
+        if let image = model.image {
+            gameImage.image = image
+            self.applyGradient()
+        } else {
+            loadGamePoster(model.imageString)            
+        }
+        
         setupImageView()
+        setupSaveGameButton(model.saved)
         gameName.text = model.gameName
         gameChannelsCount.text = "Contador de canais: " + String(describing: model.channels)
         gameViewersCount.text = "Quantidade de visualizações: " + String(describing: model.viewers)
-        loadGamePoster(model.imageString)
     }
     
     // MARK: - Private Methods
+    private func applyGradient() {
+        self.gameImage.layer.insertSublayer(createBlackGradientLayer(forFrame: self.gameImage.frame), at: 0)
+    }
+    
+    private func setupSaveGameButton(_ saved : Bool) {
+        let image = saved ? UIImage(named: LocalizableStrings.saveButtonFilled.localize()) : UIImage(named: LocalizableStrings.saveButtonEmpty.localize())
+        saveGameButton.setImage(image ?? UIImage(), for: .normal)
+    }
     private func setupImageView() {
         gameImage.layer.cornerRadius = 10
         gameImage.clipsToBounds = true
     }
     
     private func loadGamePoster(_ string : String) {
+        guard Reachability.isConnected else {
+            return
+        }
+        
         guard let url = URL(string: string) else { return }
 
         startLoading(view: gameImage)
-        gameImage.af_setImage(withURL: url, progressQueue: .global(), imageTransition: .flipFromBottom(1.0), runImageTransitionIfCached: false) { (response) in
-            let gradient = createBlackGradientLayer(forFrame: self.gameImage.frame)
-            self.gameImage.layer.insertSublayer(gradient, at: 0)
+        
+        let placeholderImage = #imageLiteral(resourceName: "bigEmptyImage")
+        
+        gameImage.af_setImage(withURL: url, placeholderImage: placeholderImage, progressQueue: .global(), imageTransition: .flipFromLeft(1.0), runImageTransitionIfCached: false) { (response) in
+            self.applyGradient()
             stopLoading()
         }
     }
