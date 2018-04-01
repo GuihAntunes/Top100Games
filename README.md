@@ -23,8 +23,8 @@ Essa camada contém as regras de negócio que são aplicadas pelo app. Nesta cam
 A camada de *Provider* é responsável pela abstração de bibliotecas e provedores de dados que o aplicativo possa ter. Neste caso o Alamofire representa boa parte da camada de *Provider*, pois esta biblioteca realiza as requisições ao *backend* para buscar os dados, fazendo o papel do "*Base Provider*".  
 
 # Dependencias
-- lottie-ios: Biblioteca do AirBnb para incluir a animação inicial e de lista vazia.
-- Alamofire: Biblioteca para realizar requisições a partir de URL
-- AlamofireImage: Biblioteca de image loader e cacher para baixar as imagens da Internet
-- Reachability: Verificador de conexão com a Internet
-- Freddy: Biblioteca para facilitar o parse de arquivos no formato JSON
+- **lottie-ios:** Biblioteca do AirBnb para incluir a animação inicial e de lista vazia.
+- **Alamofire:** Biblioteca para realizar requisições a partir de URL
+- **AlamofireImage:** Biblioteca de image loader e cacher para baixar as imagens da Internet
+- **Reachability:** Verificador de conexão com a Internet
+- **Freddy:** Biblioteca para facilitar o parse de arquivos no formato JSON
