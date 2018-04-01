@@ -136,6 +136,31 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		0E7FE83D2071779000872897 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				0EAD5F14206DE12300464251 /* SaveGameStatus.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		0E7FE83E2071779900872897 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				0EAD5F16206E940F00464251 /* Localizable.strings */,
+				0EAD5F18206E942E00464251 /* LocalizableStrings.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		0E7FE83F207177A700872897 /* Feature Toggles */ = {
+			isa = PBXGroup;
+			children = (
+				0EAD5F0F206DC7D400464251 /* PaginationFeatureToggle.swift */,
+			);
+			path = "Feature Toggles";
+			sourceTree = "<group>";
+		};
 		0E9022DF206D47D400CE0F31 = {
 			isa = PBXGroup;
 			children = (
@@ -269,10 +294,9 @@
 		0EAD5EE2206D80EF00464251 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				0EAD5F0F206DC7D400464251 /* PaginationFeatureToggle.swift */,
-				0EAD5F14206DE12300464251 /* SaveGameStatus.swift */,
-				0EAD5F16206E940F00464251 /* Localizable.strings */,
-				0EAD5F18206E942E00464251 /* LocalizableStrings.swift */,
+				0E7FE83F207177A700872897 /* Feature Toggles */,
+				0E7FE83E2071779900872897 /* Strings */,
+				0E7FE83D2071779000872897 /* Enums */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
