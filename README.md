@@ -21,7 +21,7 @@ Essa camada é responsável pelo controle do fluxo de operações. Ele se comuni
 Essa camada contém as regras de negócio que são aplicadas pelo app. Nesta camada da arquitetura, são feitas as chamadas aos provedores de dados. Depois de recolhidos os dados, a *Business* trata as regras de negócio de acordo e também faz o tratamento de eventuais erros.
 
 **Provider:**
-A camada de *Provider* é responsável pela abstração de bibliotecas e provedores de dados que o aplicativo possa ter. Neste caso o Alamofire representa boa parte da camada de *Provider*, pois esta biblioteca realizar as requisições ao *backend* para buscar os dados, fazendo o papel do "*Base Provider*".  
+A camada de *Provider* é responsável pela abstração de bibliotecas e provedores de dados que o aplicativo possa ter. Neste caso o Alamofire representa boa parte da camada de *Provider*, pois esta biblioteca realiza as requisições ao *backend* para buscar os dados, fazendo o papel do "*Base Provider*".  
 
 # Dependencias
 - lottie-ios: Biblioteca do AirBnb para incluir a animação inicial e de lista vazia.
