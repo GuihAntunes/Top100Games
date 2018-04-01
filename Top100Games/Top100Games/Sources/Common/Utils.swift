@@ -12,13 +12,11 @@ import UIKit
 let showActivity = UIActivityIndicatorView()
 
 public func startLoading(view : UIView) {
-    
-    showActivity.center = CGPoint(x: view.center.x, y: view.center.y)
+    showActivity.center = CGPoint(x: view.center.x, y: UIScreen.main.bounds.maxY - 12)
     showActivity.color = UIColor.white
     view.addSubview(showActivity)
     view.bringSubview(toFront: showActivity)
     showActivity.startAnimating()
-    
 }
 
 public func stopLoading() {

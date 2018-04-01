@@ -55,14 +55,11 @@ class DetailsView: UIView {
         }
         
         guard let url = URL(string: string) else { return }
-
-        startLoading(view: gameImage)
         
         let placeholderImage = #imageLiteral(resourceName: "bigEmptyImage")
         
         gameImage.af_setImage(withURL: url, placeholderImage: placeholderImage, progressQueue: .global(), imageTransition: .flipFromLeft(1.0), runImageTransitionIfCached: false) { (response) in
             self.applyGradient()
-            stopLoading()
         }
     }
 

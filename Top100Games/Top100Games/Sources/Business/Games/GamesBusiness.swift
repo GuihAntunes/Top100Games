@@ -68,6 +68,8 @@ class GamesBusiness {
                 _self.append(gamesList: list, to: &_self.topGames)
             }
             
+            _self.checkPaginationFeatureToggle()
+            
             completion { _self.topGames }
         }
         
@@ -131,6 +133,21 @@ class GamesBusiness {
     }
     
     // MARK: - Private Methods
+    private func checkPaginationFeatureToggle() {
+        if !PaginationFeatureToggle.isInfinitPaginationEnabled && PaginationFeatureToggle.isPaginationEnabled {
+            if let actualList : [Game] = topGames?.games {
+                var newList : [Game] = []
+                actualList.forEach { (game) in
+                    if (actualList.index(of: game) ?? 0) < 100 {
+                        newList.append(game)
+                    }
+                }
+                
+                self.topGames?.games = newList
+            }
+        }
+    }
+    
     private func checkCachedGamesForGame(_ game : Game) -> Bool {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return false
@@ -180,6 +197,7 @@ class GamesBusiness {
                 results.forEach { (coreDataItem) in
                     if let gameName = coreDataItem.value(forKey: "name") as? String, let gameChannels = coreDataItem.value(forKey: "channels") as? String, let gameViewers = coreDataItem.value(forKey: "viewers") as? String, let gameId = coreDataItem.value(forKey: "id") as? Int64, let imageData = coreDataItem.value(forKey: "image") as? Data {
                         let game = Game(name: gameName, channels: Int(gameChannels) ?? 0, viewers: Int(gameViewers) ?? 0, id : Int(gameId), image : UIImage(data: imageData))
+                        game.saved = true
                         retrievedGames.append(game)
                     }
                 }

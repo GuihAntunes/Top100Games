@@ -44,12 +44,9 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
         
         guard let url = URL(string: string) else { return }
         
-        startLoading(view: gamePoster)
-        
         let placeholderImage = #imageLiteral(resourceName: "emptyImage")
         
         gamePoster.af_setImage(withURL: url,  placeholderImage: placeholderImage, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false) { (response) in
-            stopLoading()
         }
         
     }
@@ -57,7 +54,6 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     // MARK: - Override
     override func prepareForReuse() {
         gameNameLabel.text = ""
-        gamePoster.image = #imageLiteral(resourceName: "emptyImage")
         gamePoster.af_cancelImageRequest()
     }
     

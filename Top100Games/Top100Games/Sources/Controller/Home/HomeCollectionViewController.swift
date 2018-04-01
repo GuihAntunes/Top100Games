@@ -55,6 +55,13 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         setupHome()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !Reachability.isConnected {
+            loadGames(shouldShowErrorAlert: false)
+        }
+    }
+    
     // MARK: - General Methods
     private func presentInternetErrorAlert() {
         let internetErrorAlert = createAlertWith(title: LocalizableStrings.offlineModeTitle.localize(), message: LocalizableStrings.offlineModeMessage.localize(), retryAction: true, { (action) in
@@ -79,19 +86,17 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
             condition = lastItem >= (games?.count ?? 0) - 1 && (games?.count ?? 0) < 100
         }
         
-        if condition {
-            loadGames(nextPage: true)
-        }
+        loadGames(nextPage: condition)
     }
 
-    fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false) {
+    fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false, shouldShowErrorAlert : Bool = true) {
         if !Reachability.isConnected {
             self.refreshControl.endRefreshing()
-            presentInternetErrorAlert()
+            if shouldShowErrorAlert { presentInternetErrorAlert() }
         }
         
         if !refresh {
-            startLoading(view: view)
+            startLoading(view: collectionView?.inputView ?? view)
         }
         
         manager.fetchTopGames(refresh: refresh, nextPage: nextPage) { [weak self] (callback) in

@@ -33,11 +33,10 @@ struct GamesApiProvider {
     
     static var limitQuery: String {
         var limit = 100
-        if PaginationFeatureToggle.isInfinitPaginationEnabled {
+        if PaginationFeatureToggle.isInfinitPaginationEnabled || PaginationFeatureToggle.isPaginationEnabled {
             limit = 50
-        } else if PaginationFeatureToggle.isPaginationEnabled {
-            limit = 20
         }
+        
         return "?limit=\(limit)"
     }
     

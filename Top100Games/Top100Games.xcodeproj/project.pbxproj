@@ -258,10 +258,8 @@
 		0EAD5EDD206D80EF00464251 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0EAD5EDE206D80EF00464251 /* Extensions.swift */,
-				0EAD5EDF206D80EF00464251 /* Identifiable.swift */,
+				0EAD5F1A207078FA00464251 /* Extensions and Protocols */,
 				0EAD5EE0206D80EF00464251 /* Utils.swift */,
-				0EAD5EE1206D80EF00464251 /* ViewCustomizable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -351,6 +349,16 @@
 				0EAD5F11206DDFBC00464251 /* DetailsManager.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		0EAD5F1A207078FA00464251 /* Extensions and Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0EAD5EDE206D80EF00464251 /* Extensions.swift */,
+				0EAD5EDF206D80EF00464251 /* Identifiable.swift */,
+				0EAD5EE1206D80EF00464251 /* ViewCustomizable.swift */,
+			);
+			path = "Extensions and Protocols";
 			sourceTree = "<group>";
 		};
 		290DA0A0E13D2F807A30EF20 /* Pods */ = {
