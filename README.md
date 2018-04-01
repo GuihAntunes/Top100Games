@@ -4,7 +4,7 @@
 - Cocoapods 1.3.1
 
 # Antes de rodar o projeto
-Antes de rodar o projeto, por favor,rode 'pod install' dentro da pasta onde se encontra o Podfile
+Antes de rodar o projeto, por favor, rode 'pod install' dentro da pasta onde se encontra o Podfile através do terminal.
 
 # Arquitetura
 **View:** 
