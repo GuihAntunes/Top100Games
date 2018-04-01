@@ -64,12 +64,33 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     
     // MARK: - General Methods
     private func stopLoading() {
-        view.subviews.forEach({ (view) in
+        collectionView?.subviews.forEach({ (view) in
             if view is UIActivityIndicatorView {
                 view.removeFromSuperview()
             }
         })
     }
+    
+    private func startLoading() {
+        var shouldInsertActivityIndicator = true
+        
+        for view in view.subviews {
+            if view is UIActivityIndicatorView {
+                shouldInsertActivityIndicator = false
+                break
+            }
+        }
+        
+        if shouldInsertActivityIndicator {
+            let showActivity = UIActivityIndicatorView()
+            showActivity.center = view.center
+            showActivity.color = UIColor.white
+            collectionView?.addSubview(showActivity)
+            collectionView?.bringSubview(toFront: showActivity)
+            showActivity.startAnimating()
+        }
+    }
+    
     private func presentInternetErrorAlert() {
         let internetErrorAlert = createAlertWith(title: LocalizableStrings.offlineModeTitle.localize(), message: LocalizableStrings.offlineModeMessage.localize(), retryAction: true, { (action) in
             self.loadGames()
@@ -85,17 +106,6 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         collectionView?.allowsMultipleSelection = false
         loadGames()
     }
-    
-    fileprivate func handlePagination(lastItem : Int) {
-        var condition : Bool = false
-        if PaginationFeatureToggle.isInfinitPaginationEnabled {
-            condition = lastItem >= (games?.count ?? 0) - 1
-        } else {
-            condition = lastItem >= (games?.count ?? 0) - 1 && (games?.count ?? 0) < 100
-        }
-        
-        loadGames(nextPage: condition)
-    }
 
     fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false, showErrorAlertIfNeeded : Bool = true) {
         if !Reachability.isConnected {
@@ -104,7 +114,7 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         }
         
         if !refresh {
-            startLoading(inView: view)
+            startLoading()
         }
         
         manager.fetchTopGames(refresh: refresh, nextPage: nextPage) { [weak self] (callback) in
@@ -161,8 +171,8 @@ extension HomeCollectionViewController {
         
         cell.setupCellWithModel(game)
         
-        if PaginationFeatureToggle.isPaginationEnabled && Reachability.isConnected {
-            handlePagination(lastItem: indexPath.item)
+        if indexPath.item >= (games?.count ?? 0) - 1 {
+            loadGames(nextPage: true)
         }
         
         return cell

@@ -18,8 +18,10 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     
     // MARK: - Public Methods
     public func setupCellWithModel(_ model : Game) {
-        if let poster = model.image {
-            gamePoster.image = poster
+        if !Reachability.isConnected {
+            if let poster = model.image {
+                gamePoster.image = poster
+            }
         } else {
             loadGamePoster(imageString: model.thumbnailString)
         }
@@ -30,24 +32,19 @@ class GameCollectionViewCell: UICollectionViewCell, Identifiable {
     
     // MARK: - Private Methods
     private func setupGamePosterView() {
-        self.layer.cornerRadius = 10
-        self.clipsToBounds = true
+        layer.cornerRadius = 10
+        clipsToBounds = true
         gamePoster.layer.cornerRadius = 10
         gamePoster.clipsToBounds = true
         gamePoster.contentMode = .scaleAspectFill
     }
     
     private func loadGamePoster(imageString string : String) {
-        guard Reachability.isConnected else {
-            return
-        }
-        
         guard let url = URL(string: string) else { return }
         
         let placeholderImage = #imageLiteral(resourceName: "emptyImage")
         
-        gamePoster.af_setImage(withURL: url,  placeholderImage: placeholderImage, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false) { (response) in
-        }
+        gamePoster.af_setImage(withURL: url,  placeholderImage: placeholderImage, progressQueue: .global(), imageTransition: .flipFromTop(0.5), runImageTransitionIfCached: false)
         
     }
     

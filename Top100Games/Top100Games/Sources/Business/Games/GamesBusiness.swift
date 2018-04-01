@@ -21,7 +21,7 @@ class GamesBusiness {
     public func fetchTopGames(refresh : Bool = false, nextPage : Bool, _ completion : @escaping TopGamesCallback) {
         
         guard Reachability.isConnected else {
-            DispatchQueue.main.async {
+            DispatchQueue.main.sync {
                 self.handleCoreDataRequest()
                 completion { self.topGames }
             }
@@ -54,22 +54,12 @@ class GamesBusiness {
                 return
             }
             
-            if let gamesArray = list.games {
-                list.games = gamesArray.map({ game in
-                    let newGame = game
-                    newGame.saved = _self.checkCachedGamesForGame(game)
-                    return newGame
-                })
-            }
-            
             if _self.topGames == nil {
                 _self.topGames = list
             } else {
                 _self.append(gamesList: list, to: &_self.topGames)
             }
-            
-            _self.checkPaginationFeatureToggle()
-            
+
             completion { _self.topGames }
         }
         
@@ -133,22 +123,7 @@ class GamesBusiness {
     }
     
     // MARK: - Private Methods
-    private func checkPaginationFeatureToggle() {
-        if !PaginationFeatureToggle.isInfinitPaginationEnabled && PaginationFeatureToggle.isPaginationEnabled {
-            if let actualList : [Game] = topGames?.games {
-                var newList : [Game] = []
-                actualList.forEach { (game) in
-                    if (actualList.index(of: game) ?? 0) < 100 {
-                        newList.append(game)
-                    }
-                }
-                
-                self.topGames?.games = newList
-            }
-        }
-    }
-    
-    private func checkCachedGamesForGame(_ game : Game) -> Bool {
+    fileprivate func checkCachedGamesForGame(_ game : Game) -> Bool {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return false
         }
@@ -238,7 +213,16 @@ extension GamesBusiness {
             filteredArray.insert(game)
             return game
         }
+        
         list.games = uniqueGames
+        
+        if let gamesArray = list.games {
+            list.games = gamesArray.map({ game in
+                let newGame = game
+                newGame.saved = self.checkCachedGamesForGame(game)
+                return newGame
+            })
+        }
         
         oldList = list
     }

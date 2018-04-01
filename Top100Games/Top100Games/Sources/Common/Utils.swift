@@ -9,17 +9,6 @@
 import Foundation
 import UIKit
 
-
-public func startLoading(inView : UIView?) {
-    let showActivity = UIActivityIndicatorView()
-    guard let view = inView else { return }
-    showActivity.center = view.center
-    showActivity.color = UIColor.white
-    view.addSubview(showActivity)
-    view.bringSubview(toFront: showActivity)
-    showActivity.startAnimating()
-}
-
 public func createAlertWith(title : String, message : String, retryAction : Bool, _ completion : ((UIAlertAction) -> Void)?) -> UIAlertController {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     let okAction = UIAlertAction(title: LocalizableStrings.okActionTitle.localize(), style: .default, handler: nil)
@@ -39,18 +28,4 @@ public func createBlackGradientLayer(forFrame frame : CGRect) -> CAGradientLayer
     gradientLayer.locations = [0, 1]
     
     return gradientLayer
-}
-
-public func createRoundedShadowLayer(withFrame frame : CGRect) -> CAShapeLayer {
-    let shadowRoundedLayer = CAShapeLayer()
-    shadowRoundedLayer.path = UIBezierPath(roundedRect: frame, cornerRadius: 12).cgPath
-    shadowRoundedLayer.fillColor = UIColor.white.cgColor
-    
-    shadowRoundedLayer.shadowColor = UIColor.darkGray.cgColor
-    shadowRoundedLayer.shadowPath = shadowRoundedLayer.path
-    shadowRoundedLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-    shadowRoundedLayer.shadowOpacity = 0.8
-    shadowRoundedLayer.shadowRadius = 2
-    
-    return shadowRoundedLayer
 }
