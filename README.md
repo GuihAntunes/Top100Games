@@ -27,3 +27,4 @@ A camada de *Provider* é responsável pela abstração de bibliotecas e provedo
 - Alamofire: Biblioteca para realizar requisições a partir de URL
 - AlamofireImage: Biblioteca de image loader e cacher para baixar as imagens da Internet
 - Reachability: Verificador de conexão com a Internet
+- Freddy: Biblioteca para facilitar o parse de arquivos no formato JSON
