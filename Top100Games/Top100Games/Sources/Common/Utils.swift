@@ -9,21 +9,15 @@
 import Foundation
 import UIKit
 
-let showActivity = UIActivityIndicatorView()
 
-public func startLoading(view : UIView) {
-    showActivity.center = CGPoint(x: view.center.x, y: UIScreen.main.bounds.maxY - 12)
+public func startLoading(inView : UIView?) {
+    let showActivity = UIActivityIndicatorView()
+    guard let view = inView else { return }
+    showActivity.center = view.center
     showActivity.color = UIColor.white
     view.addSubview(showActivity)
     view.bringSubview(toFront: showActivity)
     showActivity.startAnimating()
-}
-
-public func stopLoading() {
-    
-    showActivity.stopAnimating()
-    showActivity.removeFromSuperview()
-    
 }
 
 public func createAlertWith(title : String, message : String, retryAction : Bool, _ completion : ((UIAlertAction) -> Void)?) -> UIAlertController {

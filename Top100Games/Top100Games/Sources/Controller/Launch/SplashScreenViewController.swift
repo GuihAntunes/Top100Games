@@ -7,20 +7,17 @@
 //
 
 import UIKit
+import Lottie
 
 class SplashScreenViewController: UIViewController {
 
     // MARK: - Properties
+    private lazy var initialAnimation = LOTAnimationView(name: "countdown")
     
     // MARK: - View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        performSegue(withIdentifier: HomeCollectionViewController.segueIdentifier, sender: nil)
+        playLottieAnimation()
     }
     
     // MARK: - General Methods
@@ -30,6 +27,19 @@ class SplashScreenViewController: UIViewController {
         }
         homeController.transitioningDelegate = self
         homeController.modalPresentationStyle = .custom
+    }
+    
+    private func playLottieAnimation() {
+        initialAnimation.autoReverseAnimation = false
+        initialAnimation.frame = CGRect(x: view.frame.width / 4 - 125, y: view.frame.width / 4 - 125, width: 350, height: 350)
+        initialAnimation.center = view.center
+        view.addSubview(initialAnimation)
+        initialAnimation.play { (success) in
+            if success {
+                self.initialAnimation.alpha = 0
+                self.performSegue(withIdentifier: HomeCollectionViewController.segueIdentifier, sender: nil)
+            }
+        }
     }
     
     // MARK: - Actions

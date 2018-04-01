@@ -58,11 +58,18 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !Reachability.isConnected {
-            loadGames(shouldShowErrorAlert: false)
+            loadGames(showErrorAlertIfNeeded: false)
         }
     }
     
     // MARK: - General Methods
+    private func stopLoading() {
+        view.subviews.forEach({ (view) in
+            if view is UIActivityIndicatorView {
+                view.removeFromSuperview()
+            }
+        })
+    }
     private func presentInternetErrorAlert() {
         let internetErrorAlert = createAlertWith(title: LocalizableStrings.offlineModeTitle.localize(), message: LocalizableStrings.offlineModeMessage.localize(), retryAction: true, { (action) in
             self.loadGames()
@@ -71,6 +78,7 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
     }
     
     private func setupHome() {
+        collectionView?.alpha = 0
         collectionView?.refreshControl = refreshControl
         collectionView?.dataSource = self
         collectionView?.delegate = self
@@ -89,24 +97,25 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         loadGames(nextPage: condition)
     }
 
-    fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false, shouldShowErrorAlert : Bool = true) {
+    fileprivate func loadGames(refresh : Bool = false, nextPage : Bool = false, showErrorAlertIfNeeded : Bool = true) {
         if !Reachability.isConnected {
             self.refreshControl.endRefreshing()
-            if shouldShowErrorAlert { presentInternetErrorAlert() }
+            if showErrorAlertIfNeeded { presentInternetErrorAlert() }
         }
         
         if !refresh {
-            startLoading(view: collectionView?.inputView ?? view)
+            startLoading(inView: view)
         }
         
         manager.fetchTopGames(refresh: refresh, nextPage: nextPage) { [weak self] (callback) in
             guard let _self = self else { return }
+            if (_self.collectionView?.alpha == 0) { _self.collectionView?.alpha = 1 }
+            _self.stopLoading()
             
             guard let list = callback() else { return }
             
             _self.returnedGames = list.games
             _self.refreshControl.endRefreshing()
-            stopLoading()
         }
     }
     
@@ -163,6 +172,7 @@ extension HomeCollectionViewController {
                                  didEndDisplaying cell: UICollectionViewCell,
                                  forItemAt indexPath: IndexPath) {
         guard let gameCell = cell as? GameCollectionViewCell else { return }
+        guard Reachability.isConnected else { return }
         gameCell.gamePoster.af_cancelImageRequest()
     }
     
