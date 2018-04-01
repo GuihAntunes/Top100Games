@@ -10,6 +10,14 @@ import Foundation
 
 enum LocalizableStrings: String {
     
+    // Details View
+    case channelsCountField
+    case viewersCountField
+    
+    // Lottie animations names
+    case emptyListAnimationName
+    case initialAnimationName
+    
     // Strings
     case okActionTitle
     case tryAgainTitle
@@ -17,6 +25,16 @@ enum LocalizableStrings: String {
     case saveOnCoreDataMessage
     case deletedFromCoreDataTitle
     case deletedFromCoreDataMessage
+    case initialTitle
+    case emptyStateScreenTitle
+    
+    // Core Data Entities and Attributes
+    case gameCoreDataEntityName
+    case coreDataNameAttribute
+    case coreDataChannelsAttribute
+    case coreDataViewersAttribute
+    case coreDataIdAttribute
+    case coreDataImageAttribute
     
     // Images names
     case saveButtonFilled
@@ -27,10 +45,13 @@ enum LocalizableStrings: String {
     case failedToSaveOnCoreDataMessage
     case failedDeleteFromCoreDataTitle
     case failedDeleteFromCoreDataMessage
+    case failedToRetrieveFromCoreData
     case offlineModeTitle
     case offlineModeMessage
     case invalidURL
     case genericError
+    case emptyStateTitle
+    case failedToCreateAppDelegate
     
     func localize() -> String {
         return self.rawValue.localize()

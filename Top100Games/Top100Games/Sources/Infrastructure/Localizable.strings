@@ -6,17 +6,49 @@
 //  Copyright © 2018 Guilherme Antunes. All rights reserved.
 //
 
+// Details View
+"channelsCountField" = "Contador de canais: ";
+"viewersCountField" = "Quantidade de visualizações: ";
+
+// Lottie animations names
+"emptyListAnimationName" = "empty_list";
+"initialAnimationName" = "countdown";
+
+// Strings
 "okActionTitle" = "Ok";
 "tryAgainTitle" = "Tentar Novamente";
-"offlineModeTitle" = "Sem conexão!";
-"offlineModeMessage" = "Ops! Você parece estar sem internet!";
 "savedOnCoreDataTitle" = "Checkpoint!";
 "saveOnCoreDataMessage" = "Jogo salvo!";
-"failedToSaveOnCoreDataTitle" = "Falha ao salvar!";
-"failedToSaveOnCoreDataMessage" = "Houve um problema ao tentar salvar o jogo!";
-"saveButtonFilled" = "favorite_full_icon";
-"saveButtonEmpty" = "favorite_empty_icon";
 "deletedFromCoreDataTitle" = "Apagado!";
 "deletedFromCoreDataMessage" = "Jogo apagado!";
+"initialTitle" = "Top Twitch Games";
+"emptyStateScreenTitle" = "Sem jogos aqui!";
+
+// Core Data Entities and Attributes
+"gameCoreDataEntityName" = "Games";
+"coreDataNameAttribute" = "name";
+"coreDataChannelsAttribute" = "channels";
+"coreDataViewersAttribute" = "viewers";
+"coreDataIdAttribute" = "id";
+"coreDataImageAttribute" = "image";
+
+// Images names
+"saveButtonFilled" = "favorite_full_icon";
+"saveButtonEmpty" = "favorite_empty_icon";
+
+// Error Handling
+"offlineModeTitle" = "Sem conexão!";
+"offlineModeMessage" = "Ops! Você parece estar sem internet!";
+"failedToSaveOnCoreDataTitle" = "Falha ao salvar!";
+"failedToSaveOnCoreDataMessage" = "Houve um problema ao tentar salvar o jogo!";
 "failedDeleteFromCoreDataTitle" = "Falha ao apagar!";
 "failedDeleteFromCoreDataMessage" = "Houve um problema ao tentar apagar o jogo!";
+"emptyStateTitle" = "Sem jogos aqui!";
+"invalidURL" = "Failed to get url!";
+"genericError" = "Unknown error!";
+"failedToCreateAppDelegate" = "Error on creating App Delegate";
+"failedToRetrieveFromCoreData" = "Failed to retrieve data from Core Data";
+
+
+
+

@@ -12,7 +12,7 @@ import Lottie
 class SplashScreenViewController: UIViewController {
 
     // MARK: - Properties
-    private lazy var initialAnimation = LOTAnimationView(name: "countdown")
+    private lazy var initialAnimation = LOTAnimationView(name: LocalizableStrings.initialAnimationName.localize())
     
     // MARK: - View Life Cycle
     override func viewDidAppear(_ animated: Bool) {

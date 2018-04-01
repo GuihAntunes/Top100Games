@@ -8,6 +8,7 @@
 
 import UIKit
 import Reachability
+import Lottie
 
 class HomeCollectionViewController: UICollectionViewController, Identifiable {
     
@@ -29,6 +30,8 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
             }
         }
     }
+    
+    private let animationView = LOTAnimationView(name: LocalizableStrings.emptyListAnimationName.localize())
     
     fileprivate var selectedGame : Game?
     
@@ -62,7 +65,23 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         }
     }
     
-    // MARK: - General Methods
+    // MARK: - Private Methods
+    fileprivate func setupEmptyState() {
+        title = LocalizableStrings.emptyStateScreenTitle.localize()
+        animationView.frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: 300, height: 200)
+        animationView.center = CGPoint(x: view.center.x, y: view.center.y - 64)
+        animationView.autoReverseAnimation = false
+        animationView.loopAnimation = true
+        collectionView?.addSubview(animationView)
+        collectionView?.bringSubview(toFront: animationView)
+        animationView.play()
+    }
+    
+    fileprivate func removeEmptyStateViewIfNeeded() {
+        title = LocalizableStrings.initialTitle.localize()
+        animationView.removeFromSuperview()
+    }
+    
     private func stopLoading() {
         collectionView?.subviews.forEach({ (view) in
             if view is UIActivityIndicatorView {
@@ -113,10 +132,11 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
             if showErrorAlertIfNeeded { presentInternetErrorAlert() }
         }
         
-        if !refresh {
+        if !refresh && games?.isEmpty ?? true {
             startLoading()
         }
         
+        self.removeEmptyStateViewIfNeeded()
         manager.fetchTopGames(refresh: refresh, nextPage: nextPage) { [weak self] (callback) in
             guard let _self = self else { return }
             if (_self.collectionView?.alpha == 0) { _self.collectionView?.alpha = 1 }
@@ -126,6 +146,12 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
             
             _self.returnedGames = list.games
             _self.refreshControl.endRefreshing()
+            
+            if _self.games?.count == 0 {
+                _self.setupEmptyState()
+            } else {
+                _self.removeEmptyStateViewIfNeeded()
+            }
         }
     }
     
@@ -171,7 +197,7 @@ extension HomeCollectionViewController {
         
         cell.setupCellWithModel(game)
         
-        if indexPath.item >= (games?.count ?? 0) - 1 {
+        if indexPath.item >= (games?.count ?? 0) - 1 && Reachability.isConnected {
             loadGames(nextPage: true)
         }
         
@@ -192,6 +218,8 @@ extension HomeCollectionViewController {
         self.selectedGame = game
         performSegue(withIdentifier: DetailsViewController.segueIdentifier, sender: nil)
     }
+    
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

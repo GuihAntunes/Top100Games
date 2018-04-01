@@ -49,7 +49,7 @@
             </objects>
             <point key="canvasLocation" x="782" y="112"/>
         </scene>
-        <!--Top Games-->
+        <!--Top Twitch Games-->
         <scene sceneID="lqZ-BK-som">
             <objects>
                 <collectionViewController id="KY5-7T-1IB" customClass="HomeCollectionViewController" customModule="Top100Games" customModuleProvider="target" sceneMemberID="viewController">
@@ -104,7 +104,7 @@
                             <outlet property="delegate" destination="KY5-7T-1IB" id="0gT-iu-75B"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Top Games" id="FNn-Hh-TK2">
+                    <navigationItem key="navigationItem" title="Top Twitch Games" id="FNn-Hh-TK2">
                         <barButtonItem key="backBarButtonItem" title=" " id="v7a-mt-CJI"/>
                     </navigationItem>
                     <connections>
@@ -129,8 +129,12 @@
                                     <constraint firstAttribute="width" secondItem="FiJ-lp-I5l" secondAttribute="height" multiplier="1:1" id="BkU-SR-wJe"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tm6-w3-Qvm">
-                                <rect key="frame" x="321" y="461" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tm6-w3-Qvm">
+                                <rect key="frame" x="305" y="445" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="0v0-RY-MK5"/>
+                                    <constraint firstAttribute="width" constant="40" id="aqk-TG-BKC"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="favorite_empty_icon"/>
                                 <connections>
@@ -164,10 +168,10 @@
                         <color key="backgroundColor" red="0.1960784314" green="0.12549019610000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WY7-9D-bWT" firstAttribute="bottom" secondItem="M7b-rL-EOc" secondAttribute="bottom" constant="12" id="8m6-Q1-OES"/>
-                            <constraint firstItem="WY7-9D-bWT" firstAttribute="trailing" secondItem="Tm6-w3-Qvm" secondAttribute="trailing" constant="32" id="Iza-IH-Dpu"/>
+                            <constraint firstItem="WY7-9D-bWT" firstAttribute="trailing" secondItem="Tm6-w3-Qvm" secondAttribute="trailing" constant="30" id="Iza-IH-Dpu"/>
                             <constraint firstItem="FiJ-lp-I5l" firstAttribute="leading" secondItem="WY7-9D-bWT" secondAttribute="leading" constant="12" id="THW-qS-4pg"/>
                             <constraint firstItem="FiJ-lp-I5l" firstAttribute="top" secondItem="WY7-9D-bWT" secondAttribute="top" constant="12" id="XKY-UL-RO8"/>
-                            <constraint firstItem="M7b-rL-EOc" firstAttribute="top" secondItem="Tm6-w3-Qvm" secondAttribute="bottom" constant="32" id="XnI-VT-Ial"/>
+                            <constraint firstItem="M7b-rL-EOc" firstAttribute="top" secondItem="Tm6-w3-Qvm" secondAttribute="bottom" constant="30" id="XnI-VT-Ial"/>
                             <constraint firstItem="WY7-9D-bWT" firstAttribute="trailing" secondItem="FiJ-lp-I5l" secondAttribute="trailing" constant="12" id="Zoj-nc-7cE"/>
                             <constraint firstItem="M7b-rL-EOc" firstAttribute="leading" secondItem="WY7-9D-bWT" secondAttribute="leading" constant="12" id="g4F-Ey-dXV"/>
                             <constraint firstItem="M7b-rL-EOc" firstAttribute="top" secondItem="FiJ-lp-I5l" secondAttribute="bottom" constant="12" id="ozQ-l8-mr1"/>

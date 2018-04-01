@@ -12,6 +12,10 @@ import Reachability
 
 class DetailsView: UIView {
     
+    // MARK: - Properties
+    let channelsCountField = LocalizableStrings.channelsCountField.localize()
+    let viewersCountField = LocalizableStrings.viewersCountField.localize()
+    
     // MARK: - Outlets
     @IBOutlet weak var gameImage: UIImageView!
     @IBOutlet weak var gameName: UILabel!
@@ -31,8 +35,8 @@ class DetailsView: UIView {
         setupImageView()
         setupSaveGameButton(model.saved)
         gameName.text = model.gameName
-        gameChannelsCount.text = "Contador de canais: " + String(describing: model.channels)
-        gameViewersCount.text = "Quantidade de visualizações: " + String(describing: model.viewers)
+        gameChannelsCount.text = channelsCountField + String(describing: model.channels)
+        gameViewersCount.text = viewersCountField + String(describing: model.viewers)
     }
     
     // MARK: - Private Methods

@@ -16,6 +16,7 @@ class GamesBusiness {
     
     // MARK: - Properties
     private var topGames : GamesList?
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     // MARK: - Public Methods
     public func fetchTopGames(refresh : Bool = false, nextPage : Bool, _ completion : @escaping TopGamesCallback) {
@@ -54,6 +55,14 @@ class GamesBusiness {
                 return
             }
             
+            if let gamesArray = list.games {
+                list.games = gamesArray.map({ game in
+                    let newGame = game
+                    newGame.saved = _self.checkCachedGamesForGame(game)
+                    return newGame
+                })
+            }
+            
             if _self.topGames == nil {
                 _self.topGames = list
             } else {
@@ -66,17 +75,17 @@ class GamesBusiness {
     }
     
     public func saveGame(_ game : Game, image : UIImage) -> SaveGameStatus {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return .failed("Error on creating App Delegate")
+        guard let delegate = appDelegate else {
+            return .failed(LocalizableStrings.failedToCreateAppDelegate.localize())
         }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = delegate.persistentContainer.viewContext
         
         if self.checkCachedGamesForGame(game) {
             return .saved
         }
         
-        let newGame = NSEntityDescription.insertNewObject(forEntityName: "Games", into: context)
+        let newGame = NSEntityDescription.insertNewObject(forEntityName: LocalizableStrings.gameCoreDataEntityName.localize(), into: context)
         
         newGame.setValue(game.gameName, forKey: "name")
         newGame.setValue(String(describing: game.channels), forKey: "channels")
@@ -96,27 +105,27 @@ class GamesBusiness {
     }
     
     public func deleteGame(_ game : Game) -> SaveGameStatus {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return .failed("Error on creating App Delegate")
+        guard let delegate = appDelegate else {
+            return .failed(LocalizableStrings.failedToCreateAppDelegate.localize())
         }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = delegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: LocalizableStrings.gameCoreDataEntityName.localize())
         
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate.init(format: "id==\(Int64(game.gameId))")
         
         do {
             guard let results = try context.fetch(request) as? [NSManagedObject] else {
-                return .failed("Failed to retrieve data from Core Data")
+                return .failed(LocalizableStrings.failedToRetrieveFromCoreData.localize())
             }
             
             results.forEach { (coreDataItem) in
                 context.delete(coreDataItem)
             }
         } catch {
-            return .failed("Failed to remove data from Core Data")
+            return .failed(LocalizableStrings.failedDeleteFromCoreDataTitle.localize())
         }
         
         return .deleted
@@ -130,7 +139,7 @@ class GamesBusiness {
         
         let context = appDelegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: LocalizableStrings.gameCoreDataEntityName.localize())
         
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate.init(format: "id==\(Int64(game.gameId))")
@@ -151,13 +160,13 @@ class GamesBusiness {
     }
     
     private func getGamesFromCoreData() -> CoreDataCallback {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return CoreDataCallback(nil, .failed("Error on creating App Delegate"))
+        guard let delegate = appDelegate else {
+            return CoreDataCallback(nil, .failed(LocalizableStrings.failedToCreateAppDelegate.localize()))
         }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = delegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: LocalizableStrings.gameCoreDataEntityName.localize())
         
         request.returnsObjectsAsFaults = false
         
@@ -165,12 +174,12 @@ class GamesBusiness {
         
         do {
             guard let results = try context.fetch(request) as? [NSManagedObject] else {
-                return CoreDataCallback(nil, .failed("Failed to retrieve data from Core Data"))
+                return CoreDataCallback(nil, .failed(LocalizableStrings.failedToRetrieveFromCoreData.localize()))
             }
             
             if results.count > 0 {
                 results.forEach { (coreDataItem) in
-                    if let gameName = coreDataItem.value(forKey: "name") as? String, let gameChannels = coreDataItem.value(forKey: "channels") as? String, let gameViewers = coreDataItem.value(forKey: "viewers") as? String, let gameId = coreDataItem.value(forKey: "id") as? Int64, let imageData = coreDataItem.value(forKey: "image") as? Data {
+                    if let gameName = coreDataItem.value(forKey: LocalizableStrings.coreDataNameAttribute.localize()) as? String, let gameChannels = coreDataItem.value(forKey: LocalizableStrings.coreDataChannelsAttribute.localize()) as? String, let gameViewers = coreDataItem.value(forKey: LocalizableStrings.coreDataViewersAttribute.localize()) as? String, let gameId = coreDataItem.value(forKey: LocalizableStrings.coreDataIdAttribute.localize()) as? Int64, let imageData = coreDataItem.value(forKey: LocalizableStrings.coreDataImageAttribute.localize()) as? Data {
                         let game = Game(name: gameName, channels: Int(gameChannels) ?? 0, viewers: Int(gameViewers) ?? 0, id : Int(gameId), image : UIImage(data: imageData))
                         game.saved = true
                         retrievedGames.append(game)
@@ -215,14 +224,6 @@ extension GamesBusiness {
         }
         
         list.games = uniqueGames
-        
-        if let gamesArray = list.games {
-            list.games = gamesArray.map({ game in
-                let newGame = game
-                newGame.saved = self.checkCachedGamesForGame(game)
-                return newGame
-            })
-        }
         
         oldList = list
     }

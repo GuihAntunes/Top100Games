@@ -12,7 +12,6 @@
 		0E9022EC206D47D400CE0F31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9022EB206D47D400CE0F31 /* AppDelegate.swift */; };
 		0E9022F4206D47D400CE0F31 /* Top100Games.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E9022F2206D47D400CE0F31 /* Top100Games.xcdatamodeld */; };
 		0E902304206D47D400CE0F31 /* Top100GamesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E902303206D47D400CE0F31 /* Top100GamesTests.swift */; };
-		0EAD5EF0206D80F000464251 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD5ED5206D80EF00464251 /* EmptyStateView.swift */; };
 		0EAD5EF1206D80F000464251 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD5ED9206D80EF00464251 /* SplashScreenViewController.swift */; };
 		0EAD5EF2206D80F000464251 /* GamesApiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD5EDC206D80EF00464251 /* GamesApiProvider.swift */; };
 		0EAD5EF3206D80F000464251 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD5EDE206D80EF00464251 /* Extensions.swift */; };
@@ -61,7 +60,6 @@
 		0E9022FF206D47D400CE0F31 /* Top100GamesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Top100GamesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E902303206D47D400CE0F31 /* Top100GamesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top100GamesTests.swift; sourceTree = "<group>"; };
 		0E902305206D47D400CE0F31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0EAD5ED5206D80EF00464251 /* EmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		0EAD5ED9206D80EF00464251 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		0EAD5EDC206D80EF00464251 /* GamesApiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesApiProvider.swift; sourceTree = "<group>"; };
 		0EAD5EDE206D80EF00464251 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 			children = (
 				0EAD5ED3206D80EF00464251 /* Home */,
 				0EAD5ED4206D80EF00464251 /* Details */,
-				0EAD5ED5206D80EF00464251 /* EmptyStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -562,7 +559,6 @@
 				0EAD5F08206D855100464251 /* GameCollectionViewCell.swift in Sources */,
 				0EAD5EFD206D82B800464251 /* HomeManager.swift in Sources */,
 				0EAD5F12206DDFBC00464251 /* DetailsManager.swift in Sources */,
-				0EAD5EF0206D80F000464251 /* EmptyStateView.swift in Sources */,
 				0E9022EC206D47D400CE0F31 /* AppDelegate.swift in Sources */,
 				0EAD5F06206D83B500464251 /* HomeCollectionViewController.swift in Sources */,
 				0EAD5EF4206D80F000464251 /* Identifiable.swift in Sources */,

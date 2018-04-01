@@ -45,7 +45,7 @@ struct GamesApiProvider {
     
     static func fetchTopGames(refresh : Bool = false, page : Int = 0, completion : @escaping TopGamesCallback) {
         guard let url = URL(string: urlString + String(describing: page)) else {
-            print("Failed to get url from string")
+            print(LocalizableStrings.invalidURL.localize())
             return
         }
         
