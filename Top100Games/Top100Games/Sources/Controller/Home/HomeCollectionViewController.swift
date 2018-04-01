@@ -52,6 +52,10 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         return .lightContent
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,12 +234,8 @@ extension HomeCollectionViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let margin = 10
         
-        var width = (UIScreen.main.bounds.width - CGFloat(2*margin))/3
-        
-        if UIDevice.current.orientation.isLandscape {
-            width = (UIScreen.main.bounds.width - CGFloat(4*margin))/5
-        }
-        
+        let width = (UIScreen.main.bounds.width - CGFloat(2*margin))/3
+
         let size = CGSize(width: width,
                           height: (width*1.41) + 30)
         

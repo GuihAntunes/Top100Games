@@ -16,7 +16,6 @@ class GamesBusiness {
     
     // MARK: - Properties
     private var topGames : GamesList?
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     // MARK: - Public Methods
     public func fetchTopGames(refresh : Bool = false, nextPage : Bool, _ completion : @escaping TopGamesCallback) {
@@ -75,11 +74,11 @@ class GamesBusiness {
     }
     
     public func saveGame(_ game : Game, image : UIImage) -> SaveGameStatus {
-        guard let delegate = appDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return .failed(LocalizableStrings.failedToCreateAppDelegate.localize())
         }
         
-        let context = delegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.viewContext
         
         if self.checkCachedGamesForGame(game) {
             return .saved
@@ -105,11 +104,11 @@ class GamesBusiness {
     }
     
     public func deleteGame(_ game : Game) -> SaveGameStatus {
-        guard let delegate = appDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return .failed(LocalizableStrings.failedToCreateAppDelegate.localize())
         }
         
-        let context = delegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: LocalizableStrings.gameCoreDataEntityName.localize())
         
@@ -160,11 +159,11 @@ class GamesBusiness {
     }
     
     private func getGamesFromCoreData() -> CoreDataCallback {
-        guard let delegate = appDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return CoreDataCallback(nil, .failed(LocalizableStrings.failedToCreateAppDelegate.localize()))
         }
         
-        let context = delegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: LocalizableStrings.gameCoreDataEntityName.localize())
         
