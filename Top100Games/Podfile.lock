@@ -13,6 +13,14 @@ DEPENDENCIES:
   - lottie-ios
   - ReachabilitySwift
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - Freddy
+    - lottie-ios
+    - ReachabilitySwift
+
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
@@ -22,4 +30,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c5df715655750951dcd477c9a4bbc64b568f3d5f
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

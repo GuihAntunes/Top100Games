@@ -419,7 +419,6 @@
 				0E9022E5206D47D400CE0F31 /* Frameworks */,
 				0E9022E6206D47D400CE0F31 /* Resources */,
 				2CBFDBF85D000DBE61344D74 /* [CP] Embed Pods Frameworks */,
-				1482FB5943DEB2FB29E57FA9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -512,21 +511,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1482FB5943DEB2FB29E57FA9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Top100Games/Pods-Top100Games-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2CBFDBF85D000DBE61344D74 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -738,7 +722,7 @@
 				DEVELOPMENT_TEAM = 7AH86L34EQ;
 				INFOPLIST_FILE = Top100Games/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.guihsoft.Top100Games;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.guihsoft.Top100Games-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -754,7 +738,7 @@
 				DEVELOPMENT_TEAM = 7AH86L34EQ;
 				INFOPLIST_FILE = Top100Games/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.guihsoft.Top100Games;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.guihsoft.Top100Games-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -9,8 +9,9 @@
 import UIKit
 import Reachability
 import Lottie
+import ARKit
 
-class HomeCollectionViewController: UICollectionViewController, Identifiable {
+class HomeCollectionViewController: UICollectionViewController, Identifiable, ARSessionDelegate {
     
     // MARK: - Properties
     fileprivate var games : [Game]? {
@@ -22,6 +23,12 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
             returnedGames = newValue
         }
     }
+    
+    lazy fileprivate var session: ARSession = {
+        let session = ARSession()
+        session.delegate = self
+        return session
+    }()
     
     fileprivate var returnedGames : [Game]? {
         didSet {
@@ -67,6 +74,15 @@ class HomeCollectionViewController: UICollectionViewController, Identifiable {
         if !Reachability.isConnected {
             loadGames(showErrorAlertIfNeeded: false)
         }
+        
+        guard ARFaceTrackingConfiguration.isSupported else {
+            print("iPhone X required!")
+            return
+        }
+        
+        let configs = ARFaceTrackingConfiguration()
+        
+        session.run(configs, options: [.resetTracking, .removeExistingAnchors])
     }
     
     // MARK: - Private Methods
@@ -240,5 +256,46 @@ extension HomeCollectionViewController: UICollectionViewDelegateFlowLayout {
                           height: (width*1.41) + 30)
         
         return size
+    }
+}
+
+extension HomeCollectionViewController {
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        if let faceAnchor = anchors.first as? ARFaceAnchor {
+            update(withFaceAnchor: faceAnchor)
+        }
+    }
+    
+    func update(withFaceAnchor faceAnchor: ARFaceAnchor) {
+        var bledShapes:[ARFaceAnchor.BlendShapeLocation:Any] = faceAnchor.blendShapes
+        guard let rightEyeDown = bledShapes[.eyeLookDownRight] as? Float else { return }
+        if rightEyeDown > 0.5 {
+            // up
+            collectionView?.scrollToPreviousItem()
+        } else if rightEyeDown < 0.025 {
+            // down
+            collectionView?.scrollToNextItem()
+        } else {
+            // neutral
+        }
+    }
+    
+}
+
+extension UICollectionView {
+    func scrollToNextItem() {
+        let contentOffset = CGFloat(floor(self.contentOffset.x + self.bounds.size.width))
+        self.moveToFrame(contentOffset: contentOffset)
+    }
+    
+    func scrollToPreviousItem() {
+        let contentOffset = CGFloat(floor(self.contentOffset.x - self.bounds.size.width))
+        self.moveToFrame(contentOffset: contentOffset)
+    }
+    
+    func moveToFrame(contentOffset : CGFloat) {
+        let frame: CGRect = CGRect(x: contentOffset, y: self.contentOffset.y , width: self.frame.width, height: self.frame.height)
+        self.scrollRectToVisible(frame, animated: true)
     }
 }
